@@ -60,7 +60,7 @@ public class PredictivePrototype {
   }
 
   // check if the word is valid
-  private static boolean isValidWord(String word) {
+  public static boolean isValidWord(String word) {
     // iterate through the word
     for (int i = 0; i < word.length(); i++) {
       // if the character is not a letter
