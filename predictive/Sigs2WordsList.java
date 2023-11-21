@@ -1,14 +1,12 @@
 package predictive;
 
-import java.util.ArrayList;
-
 public class Sigs2WordsList {
   public static void main(String[] args) {
-    ArrayList<WordSig> words = DictionaryListImpl.readArrayList("words");
+    DictionaryListImpl dictionary = new DictionaryListImpl();
 
     // print the words of each signature in the command line
     for (String s : args) {
-      System.out.println("signatureToWords(\"" + s + "\") ->" + " : " + DictionaryListImpl.signatureToWords(s, words));
+      System.out.println("signatureToWords(\"" + s + "\") ->" + " : " + DictionaryListImpl.signatureToWords(s, dictionary.dictionaryList));
     }
   }
 }

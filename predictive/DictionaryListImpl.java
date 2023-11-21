@@ -5,37 +5,31 @@ import java.util.*;
 
 public class DictionaryListImpl {
 
-  // read the dictionary from a file and store it in a list
-  public static ArrayList<WordSig> readArrayList(String File) {
-    // read the file
-    File file = new File(File);
-    Scanner scanner;
-    try {
-      scanner = new Scanner(file);
-    } catch (FileNotFoundException e) {
-      System.out.println("File not found");
-      return null;
-    }
+  public ArrayList<WordSig> dictionaryList;
 
-    // create a new dictionary
-    ArrayList<WordSig> words = new ArrayList<WordSig>();
+  public DictionaryListImpl() {
+    this.dictionaryList = new ArrayList<>();
+    readDictionaryFromFile();
+    Collections.sort(dictionaryList, (ws1, ws2) -> ws1.getSignature().compareTo(ws2.getSignature()));
+  }
 
-    // iterate all the words in the file
-    while (scanner.hasNextLine()) {
-      String word = scanner.nextLine();
-      if (!PredictivePrototype.isValidWord(word)) {
-        continue;
+  private void readDictionaryFromFile() {
+    Set<String> dictionarySet = new HashSet<>();
+    try (Scanner scanner = new Scanner(new File("words"))) {
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine().trim();
+        if (PredictivePrototype.isValidWord(line)) {
+          String signature = PredictivePrototype.wordToSignature(line);
+          if (!dictionarySet.contains(line.toLowerCase())) {
+            dictionarySet.add(line.toLowerCase());
+            dictionaryList.add(new WordSig(line.toLowerCase(), signature));
+          }
+        }
       }
-      word = word.toLowerCase();
-      // add the word and signature to the dictionary
-      words.add(new WordSig(word, PredictivePrototype.wordToSignature(word)));
+    } catch (FileNotFoundException e) {
+      System.err.println("Error: File 'words' not found. Make sure the file exists and try again.");
+      e.printStackTrace();
     }
-    scanner.close();
-
-    // sort the list
-    Collections.sort(words);
-
-    return words;
   }
 
   // SignatureToWords method using binary search
@@ -68,12 +62,11 @@ public class DictionaryListImpl {
   }
 
   public static void main(String[] args) {
-    // read the dictionary
-    ArrayList<WordSig> words = readArrayList("words");
+    DictionaryListImpl dictionary = new DictionaryListImpl();
 
     // print the words of each signature in the command line
     for (String s : args) {
-      System.out.println("signatureToWords(" + s + ") ->" + " : " + signatureToWords(s, words));
+      System.out.println("signatureToWords(\"" + s + "\") ->" + " : " + DictionaryListImpl.signatureToWords(s, dictionary.dictionaryList));
     }
   }
 }
