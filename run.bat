@@ -1,4 +1,4 @@
-javac predictive/PredictivePrototype.java predictive/Words2SigProto.java predictive/Sigs2WordsProto.java predictive/Sigs2WordsList.java predictive/DictionaryMapImpl.java predictive/DictionaryTreeImpl.java predictive/Sigs2WordsMap.java predictive/Sigs2WordsTree.java
+javac predictive/*.java
 
 
 cd predictive
@@ -24,5 +24,7 @@ ECHO StopTimer %Time% >> .\timer\Timer-Sigs2WordsMap.txt
 ECHO StartTimer %Time% >> .\timer\Timer-Sigs2WordsTree.txt
 java -cp .. predictive.Sigs2WordsTree 4663 43556 96753 69 6263 47
 ECHO StopTimer %Time% >> .\timer\Timer-Sigs2WordsTree.txt
+
+del *.class
 
 cd ..
