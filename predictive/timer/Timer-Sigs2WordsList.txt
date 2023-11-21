@@ -1,8 +1,2 @@
-StartTimer 12:20:09,19 
-StopTimer 12:20:10,34 
-StartTimer 12:23:06,96 
-StopTimer 12:23:08,10 
-StartTimer 12:24:17,81 
-StopTimer 12:24:18,78 
-StartTimer 12:25:03,34 
-StopTimer 12:25:04,37 
+StartTimer 13:54:07,06 
+StopTimer 13:54:08,04 
